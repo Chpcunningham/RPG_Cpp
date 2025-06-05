@@ -55,7 +55,7 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	USphereComponent* SphereCollision;
 
-
+	
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	float Amplitude = 1.25f;

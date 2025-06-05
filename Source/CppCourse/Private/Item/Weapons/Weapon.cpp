@@ -2,8 +2,16 @@
 #include "Characters/MainRPGCharacter.h"
 #include "Kismet/GameplayStatics.h"
 #include "Components/SphereComponent.h"
+#include "Components/BoxComponent.h"
 
 class AMainRPGCharacter;
+
+
+AWeapon::AWeapon()
+{
+	BoxCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("Weapon Collision"));
+	BoxCollision->SetupAttachment(GetRootComponent());
+}
 
 void AWeapon::OnSphereCollision(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
@@ -39,5 +47,6 @@ void AWeapon::AttachMeshToSocket(USceneComponent* InParent, FName InSocketName)
 	FAttachmentTransformRules TransformRule(EAttachmentRule::SnapToTarget, true);
 	ItemMesh->AttachToComponent(InParent, TransformRule, InSocketName);
 }
+
 
 

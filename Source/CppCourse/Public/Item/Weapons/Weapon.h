@@ -9,7 +9,8 @@
 /**
  * 
  */
-class USoundBase; 
+class USoundBase;
+class UBoxComponent;
 
 UCLASS()
 class CPPCOURSE_API AWeapon : public AItem
@@ -17,14 +18,20 @@ class CPPCOURSE_API AWeapon : public AItem
 	GENERATED_BODY()
 	
 protected:
+	AWeapon();
+
 	virtual void OnSphereCollision(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult) override;
 
 	virtual void OnEndSphereCollision(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex) override;
 
+	
 public:
 	void Equip(USceneComponent* InParent, FName InSocketName);
 	void AttachMeshToSocket(USceneComponent* InParent, FName InSocketName);
 private:
 	UPROPERTY(EditAnywhere)
 	USoundBase* EquipSound;
+
+	UPROPERTY(VisibleAnywhere)
+	UBoxComponent* BoxCollision;
 };
