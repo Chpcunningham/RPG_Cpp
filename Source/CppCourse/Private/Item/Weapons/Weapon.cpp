@@ -1,5 +1,7 @@
 #include "Item/Weapons/Weapon.h"
 #include "Characters/MainRPGCharacter.h"
+#include "Kismet/GameplayStatics.h"
+#include "Components/SphereComponent.h"
 
 class AMainRPGCharacter;
 
@@ -18,6 +20,18 @@ void AWeapon::Equip(USceneComponent* InParent, FName InSocketName)
 	FAttachmentTransformRules TransformRule(EAttachmentRule::SnapToTarget, true);
 	ItemMesh->AttachToComponent(InParent, TransformRule, InSocketName);
 	ItemState = EItemState::EIS_Equipped;
+	if (EquipSound)
+	{
+		UGameplayStatics::PlaySoundAtLocation(
+			this,
+			EquipSound,
+			GetActorLocation()
+		);
+	}
+	if (SphereCollision)
+	{
+		SphereCollision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	}
 }
 
 void AWeapon::AttachMeshToSocket(USceneComponent* InParent, FName InSocketName)

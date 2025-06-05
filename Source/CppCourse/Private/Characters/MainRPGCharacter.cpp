@@ -168,7 +168,7 @@ void AMainRPGCharacter::PlayAttackMontage()
 	if (CharacterAnimInstance && AttackMontage)
 	{
 		CharacterAnimInstance->Montage_Play(AttackMontage);
-		const int32 Selection = FMath::RandRange(0, 1);
+		const int32 Selection = FMath::RandRange(0, 3);
 		FName SelectionName = FName();
 		switch (Selection)
 		{
@@ -177,6 +177,12 @@ void AMainRPGCharacter::PlayAttackMontage()
 			break;
 		case 1:
 			SelectionName = FName("Attack2");
+			break;
+		case 2:
+			SelectionName = FName("Attack3");
+			break;
+		case 3:
+			SelectionName = FName("Attack4");
 			break;
 		default:
 			break;

@@ -9,6 +9,8 @@
 /**
  * 
  */
+class USoundBase; 
+
 UCLASS()
 class CPPCOURSE_API AWeapon : public AItem
 {
@@ -22,5 +24,7 @@ protected:
 public:
 	void Equip(USceneComponent* InParent, FName InSocketName);
 	void AttachMeshToSocket(USceneComponent* InParent, FName InSocketName);
-	
+private:
+	UPROPERTY(EditAnywhere)
+	USoundBase* EquipSound;
 };
