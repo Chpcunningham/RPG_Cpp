@@ -1,6 +1,7 @@
 #include "Item/Weapons/Weapon.h"
 #include "Characters/MainRPGCharacter.h"
 #include "Kismet/GameplayStatics.h"
+#include "Components/SceneComponent.h"
 #include "Components/SphereComponent.h"
 #include "Components/BoxComponent.h"
 
@@ -11,6 +12,12 @@ AWeapon::AWeapon()
 {
 	BoxCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("Weapon Collision"));
 	BoxCollision->SetupAttachment(GetRootComponent());
+
+	TraceStart = CreateDefaultSubobject<USceneComponent>(TEXT("TraceStart"));
+	TraceStart->SetupAttachment(BoxCollision);
+
+	TraceEnd = CreateDefaultSubobject<USceneComponent>(TEXT("TraceEnd"));
+	TraceEnd->SetupAttachment(BoxCollision);
 }
 
 void AWeapon::OnSphereCollision(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -21,6 +28,12 @@ void AWeapon::OnSphereCollision(UPrimitiveComponent* OverlappedComponent, AActor
 void AWeapon::OnEndSphereCollision(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	Super::OnEndSphereCollision(OverlappedComponent, OtherActor, OtherComp, OtherBodyIndex);
+}
+
+void AWeapon::OnBoxCollision(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	FVector Start = TraceStart->GetComponentLocation();
+	FVector End = TraceStart->GetComponentLocation();
 }
 
 void AWeapon::Equip(USceneComponent* InParent, FName InSocketName)
