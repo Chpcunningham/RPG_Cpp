@@ -46,4 +46,7 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	USceneComponent* TraceEnd;
+
+public:
+	FORCEINLINE UBoxComponent* GetBoxCollision() const { return BoxCollision; }
 };

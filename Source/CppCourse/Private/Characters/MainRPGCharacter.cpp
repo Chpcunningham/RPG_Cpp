@@ -7,6 +7,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+#include "Components/BoxComponent.h"
 #include "GroomComponent.h"
 #include "Animation/AnimInstance.h" 
 #include "Animation/AnimMontage.h"
@@ -235,6 +236,14 @@ void AMainRPGCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &AMainRPGCharacter::Jump);
 		EnhancedInputComponent->BindAction(PickupAction, ETriggerEvent::Triggered, this, &AMainRPGCharacter::EKeyPressed);
 		EnhancedInputComponent->BindAction(AttackAction, ETriggerEvent::Triggered, this, &AMainRPGCharacter::Attack);
+	}
+}
+
+void AMainRPGCharacter::SetWeaponCollisionEnabled(ECollisionEnabled::Type CollisionType)
+{
+	if (EquippedWeapon && EquippedWeapon->GetBoxCollision())
+	{
+		EquippedWeapon->GetBoxCollision()->SetCollisionEnabled(CollisionType);
 	}
 }
 
