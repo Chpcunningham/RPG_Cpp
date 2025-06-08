@@ -3,6 +3,7 @@
 
 #include "Enemy/Enemy.h"
 #include "Components/SkeletalmeshComponent.h"
+#include "CppCourse/DebugShapes.h"
 #include "Components/CapsuleComponent.h"
 
 // Sets default values
@@ -24,6 +25,11 @@ void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 	
+}
+
+void AEnemy::GetHit(const FVector& ImpactPoint)
+{
+	DRAW_SPHERE(ImpactPoint, FColor::Cyan);
 }
 
 // Called every frame

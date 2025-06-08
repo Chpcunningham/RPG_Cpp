@@ -3,6 +3,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "CppCourse/DebugShapes.h"
 #include "Components/SceneComponent.h"
+#include "Interfaces/HitInterface.h"
 #include "Components/SphereComponent.h"
 #include "Components/BoxComponent.h"
 
@@ -63,7 +64,15 @@ void AWeapon::OnBoxCollision(UPrimitiveComponent* OverlappedComponent, AActor* O
 		true
 		);
 
-	DrawDebugSphere(GetWorld(), BoxHit.ImpactPoint, 25.f, 12, FColor::Blue, false, 5.f);
+	if (BoxHit.GetActor())
+	{
+		IHitInterface* HitInterface = Cast<IHitInterface>(BoxHit.GetActor());
+
+		if (HitInterface)
+		{
+			HitInterface->GetHit(BoxHit.ImpactPoint);
+		}
+	}
 }
 
 void AWeapon::Equip(USceneComponent* InParent, FName InSocketName)

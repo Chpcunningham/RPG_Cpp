@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Interfaces/HitInterface.h"
 #include "Enemy.generated.h"
 
 UCLASS()
-class CPPCOURSE_API AEnemy : public ACharacter
+class CPPCOURSE_API AEnemy : public ACharacter, public IHitInterface
 {
 	GENERATED_BODY()
 
@@ -20,5 +21,5 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-
+	virtual void GetHit(const FVector& ImpactPoint) override;
 };
