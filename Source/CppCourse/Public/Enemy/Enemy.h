@@ -8,6 +8,7 @@
 #include "Enemy.generated.h"
 
 class UAnimMontage;
+class USoundBase;
 
 UCLASS()
 class CPPCOURSE_API AEnemy : public ACharacter, public IHitInterface
@@ -30,6 +31,13 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = Montages)
 	UAnimMontage* HitReactMontage;
 
+	UPROPERTY(EditAnywhere, Category = ViusalEffects)
+	UParticleSystem* HitParticles;
+
 public:	
 	virtual void GetHit(const FVector& ImpactPoint) override;
+	void DirectionalHitImapct(const FVector& ImpactPoint);
+
+	UPROPERTY(EditDefaultsOnly, Category = "SoundEffects")
+	USoundBase* HitFleshSound;
 };

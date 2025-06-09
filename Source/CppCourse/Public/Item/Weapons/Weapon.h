@@ -34,6 +34,8 @@ protected:
 public:
 	void Equip(USceneComponent* InParent, FName InSocketName);
 	void AttachMeshToSocket(USceneComponent* InParent, FName InSocketName);
+
+	TArray<AActor*> IgnoreActors;
 private:
 	UPROPERTY(EditAnywhere)
 	USoundBase* EquipSound;
