@@ -244,6 +244,7 @@ void AMainRPGCharacter::SetWeaponCollisionEnabled(ECollisionEnabled::Type Collis
 	if (EquippedWeapon && EquippedWeapon->GetBoxCollision())
 	{
 		EquippedWeapon->GetBoxCollision()->SetCollisionEnabled(CollisionType);
+		EquippedWeapon->IgnoreActors.Empty();
 	}
 }
 

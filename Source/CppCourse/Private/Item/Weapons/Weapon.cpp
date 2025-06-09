@@ -3,6 +3,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "CppCourse/DebugShapes.h"
 #include "Components/SceneComponent.h"
+#include "Interfaces/HitInterface.h"
 #include "Components/SphereComponent.h"
 #include "Components/BoxComponent.h"
 
@@ -49,6 +50,11 @@ void AWeapon::OnBoxCollision(UPrimitiveComponent* OverlappedComponent, AActor* O
 	TArray<AActor*> ActorsToIgnore;
 	ActorsToIgnore.Add(this);
 
+	for (AActor* Actors : IgnoreActors)
+	{
+		ActorsToIgnore.AddUnique(Actors);
+	}
+
 	UKismetSystemLibrary::BoxTraceSingle(
 		this,
 		Start, 
@@ -58,12 +64,21 @@ void AWeapon::OnBoxCollision(UPrimitiveComponent* OverlappedComponent, AActor* O
 		ETraceTypeQuery::TraceTypeQuery1,
 		false, 
 		ActorsToIgnore, 
-		EDrawDebugTrace::ForDuration, 
+		EDrawDebugTrace::None, 
 		BoxHit,
 		true
 		);
 
-	DrawDebugSphere(GetWorld(), BoxHit.ImpactPoint, 25.f, 12, FColor::Blue, false, 5.f);
+	if (BoxHit.GetActor())
+	{
+		IHitInterface* HitInterface = Cast<IHitInterface>(BoxHit.GetActor());
+
+		if (HitInterface)
+		{
+			HitInterface->GetHit(BoxHit.ImpactPoint);
+		}
+		IgnoreActors.AddUnique(BoxHit.GetActor());
+	}
 }
 
 void AWeapon::Equip(USceneComponent* InParent, FName InSocketName)
