@@ -118,7 +118,10 @@ private:
 
 public:
 	void SetOverlappingItem(AItem* Item) { OverlappingItem = Item; }
+
+	UFUNCTION(BlueprintCallable)
 	ECharacterState GetCurrentState() const { return CharacterState; }
 
-	
+	UFUNCTION(BlueprintCallable)
+	EActionState GetCurrentActionState() const { return ActionState; }
 };

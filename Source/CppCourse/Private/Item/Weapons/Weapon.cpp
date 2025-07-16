@@ -50,6 +50,7 @@ void AWeapon::OnBoxCollision(UPrimitiveComponent* OverlappedComponent, AActor* O
 	TArray<AActor*> ActorsToIgnore;
 	ActorsToIgnore.Add(this);
 
+	
 	for (AActor* Actors : IgnoreActors)
 	{
 		ActorsToIgnore.AddUnique(Actors);
@@ -57,17 +58,17 @@ void AWeapon::OnBoxCollision(UPrimitiveComponent* OverlappedComponent, AActor* O
 
 	UKismetSystemLibrary::BoxTraceSingle(
 		this,
-		Start, 
+		Start,
 		End,
-		FVector(5.f,5.f,5.f),
+		FVector(5.f, 5.f, 5.f),
 		TraceStart->GetComponentRotation(),
 		ETraceTypeQuery::TraceTypeQuery1,
-		false, 
-		ActorsToIgnore, 
-		EDrawDebugTrace::None, 
+		false,
+		ActorsToIgnore,
+		EDrawDebugTrace::None,
 		BoxHit,
 		true
-		);
+	);
 
 	if (BoxHit.GetActor())
 	{
@@ -75,7 +76,8 @@ void AWeapon::OnBoxCollision(UPrimitiveComponent* OverlappedComponent, AActor* O
 
 		if (HitInterface)
 		{
-			HitInterface->GetHit(BoxHit.ImpactPoint);
+			HitInterface->Execute_GetHit(BoxHit.GetActor(), BoxHit.ImpactPoint);
+			CreateFields(BoxHit.ImpactPoint);
 		}
 		IgnoreActors.AddUnique(BoxHit.GetActor());
 	}

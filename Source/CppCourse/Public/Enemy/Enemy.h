@@ -35,7 +35,7 @@ protected:
 	UParticleSystem* HitParticles;
 
 public:	
-	virtual void GetHit(const FVector& ImpactPoint) override;
+	virtual void GetHit_Implementation(const FVector& ImpactPoint);
 	void DirectionalHitImapct(const FVector& ImpactPoint);
 
 	UPROPERTY(EditDefaultsOnly, Category = "SoundEffects")

@@ -45,7 +45,7 @@ void AEnemy::PlayHitReactMontage(FName SectionName)
 	}
 }
 
-void AEnemy::GetHit(const FVector& ImpactPoint)
+void AEnemy::GetHit_Implementation(const FVector& ImpactPoint)
 {
 	DirectionalHitImapct(ImpactPoint);
 	UGameplayStatics::PlaySoundAtLocation(this, HitFleshSound, GetActorLocation());
