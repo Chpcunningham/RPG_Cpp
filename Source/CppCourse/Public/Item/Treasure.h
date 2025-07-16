@@ -20,5 +20,5 @@ protected:
 private:
 	UPROPERTY(EditAnywhere, Category = "SoundEffects")
 	USoundBase* PickupSound;
-	
+
 };

@@ -3,6 +3,7 @@
 
 #include "BreakableObjects/Breakable.h"
 #include "Characters/MainRPGCharacter.h"
+#include "Item/Treasure.h"
 #include "GeometryCollection/GeometryCollectionComponent.h"
 
 // Sets default values
@@ -15,7 +16,7 @@ ABreakable::ABreakable()
 	SetRootComponent(GeometryComponent);
 	GeometryComponent->SetGenerateOverlapEvents(true);
 	GeometryComponent->SetCollisionResponseToChannel(ECollisionChannel::ECC_Camera, ECollisionResponse::ECR_Ignore);
-
+	GeometryComponent->SetCollisionResponseToChannel(ECollisionChannel::ECC_Pawn, ECollisionResponse::ECR_Ignore);
 }
 
 // Called when the game starts or when spawned
@@ -34,7 +35,15 @@ void ABreakable::Tick(float DeltaTime)
 
 void ABreakable::GetHit_Implementation(const FVector& ImpactPoint)
 {
+	UWorld* World = GetWorld();
 
+	if (World && TreasureClass)
+	{
+		FVector SpawnLocation = GetActorLocation();
+		SpawnLocation.Z += 75.f;
+
+		World->SpawnActor<ATreasure>(TreasureClass, SpawnLocation, GetActorRotation());
+	}
 }
 
 

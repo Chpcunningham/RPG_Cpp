@@ -28,4 +28,6 @@ private:
 	UPROPERTY(EditAnywhere)
 	UGeometryCollectionComponent* GeometryComponent;
 
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class ATreasure> TreasureClass;
 };
