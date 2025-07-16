@@ -2,6 +2,7 @@
 
 
 #include "BreakableObjects/Breakable.h"
+#include "Characters/MainRPGCharacter.h"
 #include "GeometryCollection/GeometryCollectionComponent.h"
 
 // Sets default values
