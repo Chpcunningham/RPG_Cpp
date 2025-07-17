@@ -28,6 +28,8 @@ private:
 	UPROPERTY(EditAnywhere)
 	UGeometryCollectionComponent* GeometryComponent;
 
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<class ATreasure> TreasureClass;
+	UPROPERTY(EditAnywhere, Category = "TreasureItems")
+	TArray<TSubclassOf<class ATreasure>> TreasureClasses;
+
+	bool bBroken = false;
 };

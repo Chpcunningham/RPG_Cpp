@@ -3,6 +3,7 @@
 
 #include "BreakableObjects/Breakable.h"
 #include "Characters/MainRPGCharacter.h"
+#include "Components/CapsuleComponent.h"
 #include "Item/Treasure.h"
 #include "GeometryCollection/GeometryCollectionComponent.h"
 
@@ -35,15 +36,20 @@ void ABreakable::Tick(float DeltaTime)
 
 void ABreakable::GetHit_Implementation(const FVector& ImpactPoint)
 {
+	if (bBroken) return;
+
+	bBroken = true;
 	UWorld* World = GetWorld();
 
-	if (World && TreasureClass)
+	if (World)
 	{
 		FVector SpawnLocation = GetActorLocation();
 		SpawnLocation.Z += 75.f;
 
-		World->SpawnActor<ATreasure>(TreasureClass, SpawnLocation, GetActorRotation());
+		int32 Selection = FMath::RandRange(0, TreasureClasses.Num() - 1);
+		World->SpawnActor<ATreasure>(TreasureClasses[Selection], SpawnLocation, GetActorRotation());
 	}
+	
 }
 
 
