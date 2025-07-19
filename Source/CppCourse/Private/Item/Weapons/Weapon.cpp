@@ -5,6 +5,7 @@
 #include "Components/SceneComponent.h"
 #include "Interfaces/HitInterface.h"
 #include "Components/SphereComponent.h"
+#include "NiagaraComponent.h"
 #include "Components/BoxComponent.h"
 
 class AMainRPGCharacter;
@@ -99,6 +100,10 @@ void AWeapon::Equip(USceneComponent* InParent, FName InSocketName)
 	if (SphereCollision)
 	{
 		SphereCollision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	}
+	if (EmbersEffect)
+	{
+		EmbersEffect->Deactivate();
 	}
 }
 

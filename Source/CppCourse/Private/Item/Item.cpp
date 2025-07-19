@@ -5,6 +5,7 @@
 
 #include "CppCourse/DebugShapes.h"
 #include "Components/SphereComponent.h"
+#include "NiagaraComponent.h"
 #include "Characters/MainRPGCharacter.h"
 
 FColor drawColor = FColor::Cyan;
@@ -21,6 +22,9 @@ AItem::AItem()
 
 	SphereCollision = CreateDefaultSubobject<USphereComponent>(TEXT("Sphere"));
 	SphereCollision->SetupAttachment(GetRootComponent());
+
+	EmbersEffect = CreateDefaultSubobject<UNiagaraComponent>(TEXT("Ember Effects"));
+	EmbersEffect->SetupAttachment(GetRootComponent());
 }
 
 // Called when the game starts or when spawned
