@@ -55,7 +55,8 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	USphereComponent* SphereCollision;
 
-	
+	UPROPERTY(EditAnywhere)
+	class UNiagaraComponent* EmbersEffect;
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	float Amplitude = 1.25f;
