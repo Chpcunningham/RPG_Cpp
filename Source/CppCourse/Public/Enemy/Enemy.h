@@ -9,6 +9,7 @@
 
 class UAnimMontage;
 class USoundBase;
+class UActorAttributes;
 
 UCLASS()
 class CPPCOURSE_API AEnemy : public ACharacter, public IHitInterface
@@ -33,6 +34,10 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = ViusalEffects)
 	UParticleSystem* HitParticles;
+
+private:
+	UPROPERTY(VisibleAnywhere)
+	UActorAttributes* Attributes;
 
 public:	
 	virtual void GetHit_Implementation(const FVector& ImpactPoint);

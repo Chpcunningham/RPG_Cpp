@@ -7,6 +7,7 @@
 #include "Sound/SoundBase.h"
 #include "Kismet/GameplayStatics.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/ActorAttributes.h"
 #include "Kismet/KismetSystemLibrary.h"
 
 
@@ -22,6 +23,8 @@ AEnemy::AEnemy()
 	GetMesh()->SetGenerateOverlapEvents(true);
 
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECollisionChannel::ECC_Camera, ECollisionResponse::ECR_Ignore);
+
+	Attributes = CreateDefaultSubobject<UActorAttributes>(TEXT("Attributes"));
 }
 
 // Called when the game starts or when spawned
