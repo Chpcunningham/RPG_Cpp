@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Interfaces/HitInterface.h"
+#include "Characters/CharacterTypes.h"
 #include "Enemy.generated.h"
 
 class UAnimMontage;
@@ -29,13 +30,20 @@ protected:
 	* PlayingMontages
 	*/
 	void PlayHitReactMontage(FName SectionName);
+	void PlayDeathMontage();
 
 	//MONTAGES
 	UPROPERTY(EditDefaultsOnly, Category = Montages)
 	UAnimMontage* HitReactMontage;
 
+	UPROPERTY(EditDefaultsOnly, Category = Montages)
+	UAnimMontage* DeathMontage;
+
 	UPROPERTY(EditAnywhere, Category = ViusalEffects)
 	UParticleSystem* HitParticles;
+
+	UPROPERTY(BlueprintReadOnly)
+	EDeathPose DeathPose = EDeathPose::EDP_Alive;
 
 private:
 	UPROPERTY(VisibleAnywhere)

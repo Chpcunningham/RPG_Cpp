@@ -37,8 +37,6 @@ AEnemy::AEnemy()
 void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
-
-
 }
 
 void AEnemy::PlayHitReactMontage(FName SectionName)
@@ -47,17 +45,63 @@ void AEnemy::PlayHitReactMontage(FName SectionName)
 	if (EnemyInstance && HitReactMontage)
 	{
 		EnemyInstance->Montage_Play(HitReactMontage);
-
-
 		EnemyInstance->Montage_JumpToSection(SectionName, HitReactMontage);
+	}
+}
 
+void AEnemy::PlayDeathMontage()
+{
+	UAnimInstance* EnemyInstance = GetMesh()->GetAnimInstance();
+	if (EnemyInstance && DeathMontage)
+	{
+		EnemyInstance->Montage_Play(DeathMontage);
 
+		const int32 Selection = FMath::RandRange(0, 5);
+		FName SelectionName = FName();
+		switch (Selection)
+		{
+		case 0:
+			SelectionName = FName("Death1");
+			DeathPose = EDeathPose::EDP_Death1;
+			break;
+		case 1:
+			SelectionName = FName("Death2");
+			DeathPose = EDeathPose::EDP_Death2;
+			break;
+		case 2:
+			SelectionName = FName("Death3");
+			DeathPose = EDeathPose::EDP_Death3;
+			break;
+		case 3:
+			SelectionName = FName("Death4");
+			DeathPose = EDeathPose::EDP_Death4;
+			break;
+		case 4:
+			SelectionName = FName("Death5");
+			DeathPose = EDeathPose::EDP_Death5;
+			break;
+		case 5:
+			SelectionName = FName("Death6");
+			DeathPose = EDeathPose::EDP_Death6;
+			break;
+		default:
+			break;
+		}
+		EnemyInstance->Montage_JumpToSection(SelectionName, DeathMontage);
 	}
 }
 
 void AEnemy::GetHit_Implementation(const FVector& ImpactPoint)
 {
-	DirectionalHitImapct(ImpactPoint);
+	if (Attributes && Attributes->IsAlive())
+	{
+		DirectionalHitImapct(ImpactPoint);
+	}
+	else
+	{
+		PlayDeathMontage();
+	}
+	
 	UGameplayStatics::PlaySoundAtLocation(this, HitFleshSound, GetActorLocation());
 
 	if (HitParticles)

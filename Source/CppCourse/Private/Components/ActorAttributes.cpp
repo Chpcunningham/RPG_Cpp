@@ -24,6 +24,11 @@ float UActorAttributes::GetHealthPercent()
 	return CurrentHealth / MaxHealth;
 }
 
+bool UActorAttributes::IsAlive()
+{
+	return CurrentHealth > 0.f;
+}
+
 
 void UActorAttributes::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
