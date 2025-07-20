@@ -32,6 +32,9 @@ protected:
 	void PlayHitReactMontage(FName SectionName);
 	void PlayDeathMontage();
 
+	UPROPERTY()
+	AActor* CombatActor;
+
 	//MONTAGES
 	UPROPERTY(EditDefaultsOnly, Category = Montages)
 	UAnimMontage* HitReactMontage;
@@ -51,6 +54,9 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	UHealthBarComponent* HealthBarWidget;
+
+	UPROPERTY(EditAnywhere)
+	float CombatRadius = 500.f;
 
 public:	
 	virtual void GetHit_Implementation(const FVector& ImpactPoint);
