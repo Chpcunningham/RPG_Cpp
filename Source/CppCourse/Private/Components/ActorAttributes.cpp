@@ -14,6 +14,16 @@ void UActorAttributes::BeginPlay()
 	Super::BeginPlay();
 }
 
+void UActorAttributes::ReceiveDamage(float Damage)
+{
+	CurrentHealth = FMath::Clamp(CurrentHealth - Damage, 0.f, MaxHealth);
+}
+
+float UActorAttributes::GetHealthPercent()
+{
+	return CurrentHealth / MaxHealth;
+}
+
 
 void UActorAttributes::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {

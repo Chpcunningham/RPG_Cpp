@@ -10,6 +10,7 @@
 class UAnimMontage;
 class USoundBase;
 class UActorAttributes;
+class UHealthBarComponent;
 
 UCLASS()
 class CPPCOURSE_API AEnemy : public ACharacter, public IHitInterface
@@ -21,6 +22,7 @@ public:
 	
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
 protected:
 	virtual void BeginPlay() override;
 	/**
@@ -38,6 +40,9 @@ protected:
 private:
 	UPROPERTY(VisibleAnywhere)
 	UActorAttributes* Attributes;
+
+	UPROPERTY(VisibleAnywhere)
+	UHealthBarComponent* HealthBarWidget;
 
 public:	
 	virtual void GetHit_Implementation(const FVector& ImpactPoint);

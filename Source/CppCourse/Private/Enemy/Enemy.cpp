@@ -8,7 +8,10 @@
 #include "Kismet/GameplayStatics.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/ActorAttributes.h"
+#include "Components/WidgetComponent.h"
+#include "HUD/HealthBarComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
+
 
 
 // Sets default values
@@ -25,12 +28,16 @@ AEnemy::AEnemy()
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECollisionChannel::ECC_Camera, ECollisionResponse::ECR_Ignore);
 
 	Attributes = CreateDefaultSubobject<UActorAttributes>(TEXT("Attributes"));
+
+	HealthBarWidget = CreateDefaultSubobject<UHealthBarComponent>(TEXT("HealthBar"));
+	HealthBarWidget->SetupAttachment(GetRootComponent());
 }
 
 // Called when the game starts or when spawned
 void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
+
 
 }
 
@@ -43,7 +50,7 @@ void AEnemy::PlayHitReactMontage(FName SectionName)
 
 
 		EnemyInstance->Montage_JumpToSection(SectionName, HitReactMontage);
-		
+
 
 	}
 }
@@ -105,5 +112,16 @@ void AEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+}
+
+float AEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	if (Attributes && HealthBarWidget)
+	{
+		Attributes->ReceiveDamage(DamageAmount);
+		HealthBarWidget->SetHealthPercent(Attributes->GetHealthPercent());
+	}
+
+	return 0.0f;
 }
 

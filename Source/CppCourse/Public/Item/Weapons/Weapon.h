@@ -34,7 +34,7 @@ protected:
 	void CreateFields(const FVector& FieldLocation);
 	
 public:
-	void Equip(USceneComponent* InParent, FName InSocketName);
+	void Equip(USceneComponent* InParent, FName InSocketName, AActor* NewActor, APawn* NewInstigator);
 	void AttachMeshToSocket(USceneComponent* InParent, FName InSocketName);
 
 	TArray<AActor*> IgnoreActors;
@@ -50,6 +50,9 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	USceneComponent* TraceEnd;
+
+	UPROPERTY(EditAnywhere)
+	float Damage = 20.f;
 
 public:
 	FORCEINLINE UBoxComponent* GetBoxCollision() const { return BoxCollision; }

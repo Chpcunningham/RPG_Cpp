@@ -81,11 +81,21 @@ void AWeapon::OnBoxCollision(UPrimitiveComponent* OverlappedComponent, AActor* O
 			CreateFields(BoxHit.ImpactPoint);
 		}
 		IgnoreActors.AddUnique(BoxHit.GetActor());
+
+		UGameplayStatics::ApplyDamage(
+			BoxHit.GetActor(),
+			Damage,
+			GetInstigator()->GetController(),
+			this,
+			UDamageType::StaticClass()
+		);
 	}
 }
 
-void AWeapon::Equip(USceneComponent* InParent, FName InSocketName)
+void AWeapon::Equip(USceneComponent* InParent, FName InSocketName, AActor* NewActor, APawn* NewInstigator)
 {
+	SetOwner(NewActor);
+	SetInstigator(NewInstigator);
 	FAttachmentTransformRules TransformRule(EAttachmentRule::SnapToTarget, true);
 	ItemMesh->AttachToComponent(InParent, TransformRule, InSocketName);
 	ItemState = EItemState::EIS_Equipped;
